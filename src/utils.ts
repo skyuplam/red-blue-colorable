@@ -27,6 +27,8 @@ type ColoredTable = Record<string, Color>;
  * 1. The adjacency list does not contain self. i.e. NO `{a:[a]}`
  * 2. No duplicated vertex in the list. i.e. NO `{a:[v,v], v:[a,a]}`
  * 3. The graph is undirected. i.e. `"a-b"` means `{a:[b], b:[a]}`
+ *
+ * @param graph - An AdjacencyList to form the relation
  */
 export const isRedBlueColorable = (graph: AdjacencyList): Result => {
   const vertices = Object.keys(graph);
@@ -87,6 +89,9 @@ export const isRedBlueColorable = (graph: AdjacencyList): Result => {
 
 /**
  * Convert number or string[] to string
+ *
+ * @param input - An input to be converted
+ *
  */
 export const toString = (input: number | string | readonly string[]) => {
   if (typeof input === "number") {

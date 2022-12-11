@@ -5,6 +5,7 @@ import { isRedBlueColorable, parse } from "./utils";
 
 describe("isRedBlueColorable", () => {
   const cases: [AdjacencyList, Result][] = [
+    [{}, [false, false]],
     [{ a: [] }, [true, false]],
     [{ a: [], b: [] }, [false, false]],
     [{ a: ["b"], b: ["a"] }, [true, true]],
