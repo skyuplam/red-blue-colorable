@@ -23,6 +23,10 @@ type ColoredTable = Record<string, Color>;
 
 /**
  * A function to check if the provided AdjacencyList is connected and colorable.
+ * Assuming:
+ * 1. The adjacency list does not contain self. i.e. NO `{a:[a]}`
+ * 2. No duplicated vertex in the list. i.e. NO `{a:[v,v], v:[a,a]}`
+ * 3. The graph is undirected. i.e. `"a-b"` means `{a:[b], b:[a]}`
  */
 export const isRedBlueColorable = (graph: AdjacencyList): Result => {
   const vertices = Object.keys(graph);
@@ -30,8 +34,8 @@ export const isRedBlueColorable = (graph: AdjacencyList): Result => {
     return [false, false];
   }
   if (vertices.length === 1 && graph[vertices[0]].length === 0) {
-    // A graph with just one vertex is connected and colorable(?)
-    return [true, true];
+    // A graph with just one vertex is connected and NOT colorable(?)
+    return [true, false];
   }
   const coloredTable = vertices.reduce<ColoredTable>(
     (acc, key) => ({ ...acc, [key]: Color.None }),
@@ -97,7 +101,7 @@ export const toString = (input: number | string | readonly string[]) => {
 /**
  * Input parser to parse input string with pattern of path string
  * (e.g. "a-b") and newline ("\n") or comma (",") are treated as a separator
- * between paths.
+ * between paths for create an adjacency list for an undirected graph
  *
  * @param input - Input string
  */
@@ -106,10 +110,10 @@ export const parse = (input: string): AdjacencyList =>
     .split("\n")
     .flatMap((line) => {
       const trimmed = line.trim();
-      if (trimmed) {
-        return trimmed.split(",");
+      if (!trimmed) {
+        return [];
       }
-      return [];
+      return trimmed.split(",");
     }) // Remove empty line
     .reduce<AdjacencyList>((graph, pair) => {
       if (pair) {
@@ -132,12 +136,8 @@ export const parse = (input: string): AdjacencyList =>
                 !graph[vertices[index - 1]].includes(vertex) &&
                 vertices[index - 1] !== vertex
               ) {
-                // Insertion follow string order, i.e. b-a => {a: ['b']}
-                if (vertices[index - 1] < vertex) {
-                  graph[vertices[index - 1]].push(vertex);
-                } else {
-                  graph[vertex].push(vertices[index - 1]);
-                }
+                graph[vertices[index - 1]].push(vertex);
+                graph[vertex].push(vertices[index - 1]);
               }
             }
           });
