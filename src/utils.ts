@@ -27,6 +27,8 @@ type ColoredTable = Record<string, Color>;
  * 1. The adjacency list does not contain self. i.e. NO `{a:[a]}`
  * 2. No duplicated vertex in the list. i.e. NO `{a:[v,v], v:[a,a]}`
  * 3. The graph is undirected. i.e. `"a-b"` means `{a:[b], b:[a]}`
+ * 4. A graph with just one vertex is connected and NOT colorable because it
+ *    only has one node
  *
  * @param graph - An AdjacencyList to form the relation
  */
