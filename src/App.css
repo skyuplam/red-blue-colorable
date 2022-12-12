@@ -16,10 +16,18 @@
   max-width: 720px;
 }
 
+textarea:invalid {
+  border: 2px dashed #ff1744;
+}
+
 .result {
   color: #42a5f5;
   max-width: 720px;
   white-space: pre-wrap;
   text-align: start;
   overflow-wrap: break-word;
+}
+
+.error {
+  color: #ff1744;
 }

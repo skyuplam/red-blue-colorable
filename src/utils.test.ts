@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import type { AdjacencyList, Result } from "./utils";
-import { isRedBlueColorable, parse } from "./utils";
+import { isRedBlueColorable, parse, isAlphaNumeric } from "./utils";
 
 describe("isRedBlueColorable", () => {
   const cases: [AdjacencyList, Result][] = [
@@ -55,6 +55,25 @@ describe("parse", () => {
   for (const [input, expected] of cases) {
     it(`${input} => ${JSON.stringify(expected)}`, () => {
       expect(parse(input)).toEqual(expected);
+    });
+  }
+});
+
+describe("isAlphaNumeric", () => {
+  for (const [input, expected] of [
+    ["", false],
+    ["a", true],
+    ["abc", true],
+    ["123", true],
+    ["=", false],
+    [".", false],
+    [",", false],
+    ["123=", false],
+    ["abc=", false],
+    ["abc-123", false],
+  ] as [string, boolean][]) {
+    it(`${input} => ${expected}`, () => {
+      expect(isAlphaNumeric(input)).toEqual(expected);
     });
   }
 });

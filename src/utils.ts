@@ -105,6 +105,19 @@ export const toString = (input: number | string | readonly string[]) => {
   return input;
 };
 
+export const isAlphaNumeric = (input: string): boolean => {
+  for (const c of input) {
+    if (
+      !(c >= "0" && c <= "9") &&
+      !(c >= "a" && c <= "z") &&
+      !(c >= "A" && c <= "Z")
+    ) {
+      return false;
+    }
+  }
+  return Boolean(input.length);
+};
+
 /**
  * Input parser to parse input string with pattern of path string
  * (e.g. "a-b") and newline ("\n") or comma (",") are treated as a separator
@@ -134,6 +147,11 @@ export const parse = (input: string): AdjacencyList =>
             return [trimmed];
           })
           .forEach((vertex, index, vertices) => {
+            if (!isAlphaNumeric(vertex)) {
+              throw new Error(
+                "Invalid input, only accepting alphanumeric combination as a word"
+              );
+            }
             if (!graph[vertex]) {
               graph[vertex] = [];
             }
