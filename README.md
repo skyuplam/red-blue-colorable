@@ -67,8 +67,6 @@ The project is scaffolded with `yarn create vite`.
 ├──  src                       # Source dir
 │   ├──  App.css               # Main CSS
 │   ├──  App.tsx               # Main React APP
-│   ├──  assets                # Generated
-│   │   └──  react.svg         # Generated
 │   ├──  Checkbox.tsx          # Checkbox Component
 │   ├──  Graph.tsx             # Graph Component for debug purpose
 │   ├──  index.css             # Generated
