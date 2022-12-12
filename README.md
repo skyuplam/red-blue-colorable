@@ -9,14 +9,14 @@ task.
 
 ## Some examples:
 
-Input: a - b - c
-Is a connected and red-blue colorable graph
-Input: a - b, f - g
-Is not a connected graph
-Input: a - b - c - a
-Is a connected graph, but not red blue colorable.
-Input: a - b, c - d, b - c, a - d
-Is a connected and red-blue colorable graph
+- Input: a - b - c
+  Is a connected and red-blue colorable graph
+- Input: a - b, f - g
+  Is not a connected graph
+- Input: a - b - c - a
+  Is a connected graph, but not red blue colorable.
+- Input: a - b, c - d, b - c, a - d
+  Is a connected and red-blue colorable graph
 
 
 ## Assumptions
