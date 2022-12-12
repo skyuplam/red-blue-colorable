@@ -1,14 +1,16 @@
 import type React from "react";
-import { useState, useLayoutEffect, useRef } from "react";
+import { useId, useState, useLayoutEffect, useRef } from "react";
 
 type TextareaValue = string | number | readonly string[];
 interface Props {
   onChange: (value: TextareaValue) => void;
+  label: string;
 }
 
 export const Textarea: React.FC<
   Omit<React.ComponentProps<"textarea">, "id" | "onChange"> & Props
-> = (props) => {
+> = ({ onChange, label, ...props }) => {
+  const id = useId();
   const textareaEl = useRef<HTMLTextAreaElement>(null);
   const [value, setValue] = useState(props.value);
 
@@ -28,17 +30,15 @@ export const Textarea: React.FC<
     const { value } = event.target;
     setValue(value);
     if (value !== undefined) {
-      props.onChange(value);
+      onChange(value);
     }
   };
 
   return (
     <div className="container">
-      <label htmlFor="input-label">
-        Input some paths to know if provided is a red-blue colorable.
-      </label>
+      <label htmlFor={id}>{label}</label>
       <textarea
-        id="inputs"
+        id={id}
         ref={textareaEl}
         {...props}
         value={value}

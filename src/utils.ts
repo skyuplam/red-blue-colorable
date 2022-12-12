@@ -41,7 +41,7 @@ export const isRedBlueColorable = (graph: AdjacencyList): Result => {
     // A graph with just one vertex is connected and NOT colorable(?)
     return [true, false];
   }
-  const coloredTable = vertices.reduce<ColoredTable>(
+  const coloredVertexMap = vertices.reduce<ColoredTable>(
     (acc, key) => ({ ...acc, [key]: Color.None }),
     {}
   );
@@ -63,12 +63,15 @@ export const isRedBlueColorable = (graph: AdjacencyList): Result => {
     const vertexIndex = vertices.indexOf(vertex);
     // Vertex has already been visited
     if (vertexIndex === -1) {
-      return coloredTable[vertex] === color;
+      return coloredVertexMap[vertex] === color;
     }
     // Visit vertex
     vertices.splice(vertexIndex, 1);
-    if (coloredTable[vertex] === Color.None || coloredTable[vertex] === color) {
-      coloredTable[vertex] = color;
+    if (
+      coloredVertexMap[vertex] === Color.None ||
+      coloredVertexMap[vertex] === color
+    ) {
+      coloredVertexMap[vertex] = color;
       for (const adjacentVertex of graph[vertex]) {
         const colorable = dfs(adjacentVertex, nextColor(color));
         // Stop when color conflict found, terminate immediately
@@ -121,7 +124,7 @@ export const isAlphaNumeric = (input: string): boolean => {
 /**
  * Input parser to parse input string with pattern of path string
  * (e.g. "a-b") and newline ("\n") or comma (",") are treated as a separator
- * between paths for create an adjacency list for an undirected graph
+ * between paths for creating an adjacency list for an undirected graph
  *
  * @param input - Input string
  */
